@@ -414,14 +414,6 @@ class UserServicesFactory
      */
     private function loadServices(array $config, ContainerBuilder $container)
     {
-        if ('fos_user.util.canonicalizer.default' === $config['service']['username_canonicalizer']) {
-            $config['service']['username_canonicalizer'] = 'fos_user.util.username_canonicalizer';
-        }
-
-        if ('fos_user.util.canonicalizer.default' === $config['service']['email_canonicalizer']) {
-            $config['service']['email_canonicalizer'] = 'fos_user.util.email_canonicalizer';
-        }
-
         // Only create a UserManager service when not using a custom one
         if ('fos_user.user_manager.default' === $config['service']['user_manager']) {
             $config['service']['user_manager'] = $this->createUserManager($config, $container);
@@ -453,10 +445,9 @@ class UserServicesFactory
         $modelManager = $this->loadModelManager($config, $container);
 
         $container->setDefinition($serviceName, new DefinitionDecorator('fos_user.user_manager.default'))
-            ->replaceArgument(1, new Reference($config['service']['username_canonicalizer']))
-            ->replaceArgument(2, new Reference($config['service']['email_canonicalizer']))
-            ->replaceArgument(3, new Reference($modelManager))
-            ->replaceArgument(4, sprintf('%%%s.model.user.class%%', $this->servicePrefix))
+            ->replaceArgument(1, new Reference($config['service']['canonical_fields_updater']))
+            ->replaceArgument(2, new Reference($modelManager))
+            ->replaceArgument(3, sprintf('%%%s.model.user.class%%', $this->servicePrefix))
             ->setPublic(false);
 
         return $serviceName;

@@ -105,8 +105,7 @@ class {{ bundle_basename }}Extension extends Extension
 
                 'service' => array(
                     'mailer' => 'fos_user.mailer.default',
-                    'email_canonicalizer' => 'fos_user.util.canonicalizer.default',
-                    'username_canonicalizer' => 'fos_user.util.canonicalizer.default',
+                    'canonical_fields_updater' => 'fos_user.util.canonical_fields_updater',
                     'user_manager' => 'fos_user.user_manager.default',
                 ),
 
