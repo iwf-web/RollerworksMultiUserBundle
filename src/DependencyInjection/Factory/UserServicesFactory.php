@@ -414,6 +414,10 @@ class UserServicesFactory
      */
     private function loadServices(array $config, ContainerBuilder $container)
     {
+        if( 'fos_user.util.canonicalizer.default' === $config['service']['canonical_fields_updater'] ) {
+            $config['service']['canonical_fields_updater'] = 'fos_user.util.canonical_fields_updater';
+        }
+
         // Only create a UserManager service when not using a custom one
         if ('fos_user.user_manager.default' === $config['service']['user_manager']) {
             $config['service']['user_manager'] = $this->createUserManager($config, $container);
