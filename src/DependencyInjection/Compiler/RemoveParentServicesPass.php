@@ -27,14 +27,14 @@ class RemoveParentServicesPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        $container->getDefinition('fos_user.listener.authentication')->setAbstract(true)->clearTags();
-        $container->getDefinition('fos_user.listener.resetting')->setAbstract(true)->clearTags();
+        $container->getDefinition('fos_user.listener.authentication')->setAbstract(false)->clearTags();
+        $container->getDefinition('fos_user.listener.resetting')->setAbstract(false)->clearTags();
 
         // Forms
-        $container->getDefinition('fos_user.registration.form.type')->setAbstract(true);
-        $container->getDefinition('fos_user.resetting.form.type')->setAbstract(true);
-        $container->getDefinition('fos_user.profile.form.type')->setAbstract(true);
-        $container->getDefinition('fos_user.change_password.form.type')->setAbstract(true);
-        $container->getDefinition('fos_user.group.form.type')->setAbstract(true);
+        $container->getDefinition('fos_user.registration.form.type')->setAbstract(false);
+        $container->getDefinition('fos_user.resetting.form.type')->setAbstract(false);
+        $container->getDefinition('fos_user.profile.form.type')->setAbstract(false);
+        $container->getDefinition('fos_user.change_password.form.type')->setAbstract(false);
+        $container->getDefinition('fos_user.group.form.type')->setAbstract(false);
     }
 }
